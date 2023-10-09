@@ -55,9 +55,13 @@ const App = () => {
       activeFiltersCopy.delete(filter);
     }
     setActiveFilters(activeFiltersCopy);
-    console.log(activeFilters);
-    console.log(activeFilters.has(filter));
-    console.log(activeFilters.has('high'));
+  };
+
+  // delete the element matching the selected item's id
+  const onDeleteItemClick = (e) => {
+    const itemId = Number(e.target.value);
+    console.log(e.target.value);
+    setTodos(todos.filter((todo) => todo.id !== itemId));
   };
 
   return (
@@ -104,11 +108,12 @@ const App = () => {
           .filter((todo) => (activeFilters.has(todo.priority)))
           .map((todo) => (
             <>
-              <p className="item" key="{todo.id}">
+              <p className="item" key={todo.id}>
                 Priority: {todo.priority}<br></br>
                 Title: {todo.title}<br></br>
                 Description: {todo.description}<br></br>
                 Deadline: {todo.deadline}<br></br>
+                <button onClick={onDeleteItemClick} value={todo.id}g>Delete</button>
               </p>
             </>
         ))}
